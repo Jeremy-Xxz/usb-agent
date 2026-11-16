@@ -1,0 +1,16 @@
+# 預設全部忽略，只放行要版控的檔案（白名單寫法）
+# 模型、執行環境、工作資料夾、key、整理紀錄都不會被上傳
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/start.bat
+!/my-agent/
+
+# my-agent 內不需要的東西
+__pycache__/
+*.pyc
+.env
+config.toml
+_agent_log.jsonl
+_trash/
