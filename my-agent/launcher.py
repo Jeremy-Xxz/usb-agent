@@ -13,7 +13,7 @@ PORT = 8080
 LLAMA = os.path.join(USB, "runtime", "llama", "llama-server.exe")
 MODEL = os.path.join(USB, "models", "model.gguf")
 WORKSPACE = os.path.join(USB, "workspace")
-CTX = os.environ.get("AGENT_CTX", "8192")  # 模型一次能看的長度，越大越吃記憶體
+CTX = os.environ.get("AGENT_CTX", "16384")  # 模型一次能看的長度，越大越吃記憶體（要和 local_agent.py 一致）
 
 
 def healthy():
