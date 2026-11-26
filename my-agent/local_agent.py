@@ -13,7 +13,7 @@ from openai import OpenAI
 
 import web_tools
 
-VERSION = "0.3.0"
+VERSION = "0.3.1"
 
 CTX = int(os.environ.get("AGENT_CTX", "16384"))  # 要和 launcher.py 傳給模型的 -c 一致
 MAX_STEPS = 10            # 單次任務最多呼叫幾輪工具
@@ -448,10 +448,13 @@ def banner(root, notes_dir):
     print(f"工作資料夾：{root}")
     print(f"筆記資料夾：{notes_dir}")
     print("模型來源：" + " → ".join(f"{p['name']}（{p['model']}）" for p in PROVIDERS))
+    flag = os.environ.get("AGENT_ONLINE")  # launcher 啟動時已檢查過，直接沿用
+    online = (flag == "1") if flag in ("0", "1") else web_tools.check_online()
+    print("網路連線：" + ("已連線" if online else "未連線（離線模式，查資料功能無法使用）"))
     if importlib.util.find_spec("ddgs"):
-        print("網路搜尋：可用")
+        print("搜尋套件：已安裝")
     else:
-        print("網路搜尋：未安裝（請執行 python.exe -m pip install ddgs）")
+        print("搜尋套件：未安裝（請執行 python.exe -m pip install ddgs）")
     print("指令：/help 說明　/reset 清除記憶　/undo 復原上次整理　/quit 離開")
 
 

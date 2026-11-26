@@ -14,6 +14,18 @@ TIMEOUT = 15
 USER_AGENT = "Mozilla/5.0 (compatible; USB-Agent/0.3)"
 
 
+# ---------- 網路狀態 ----------
+def check_online(timeout=2):
+    """快速判斷有沒有網際網路：嘗試連到兩個公用 DNS 服務的 443 埠。"""
+    for host in ("1.1.1.1", "8.8.8.8"):
+        try:
+            with socket.create_connection((host, 443), timeout=timeout):
+                return True
+        except OSError:
+            continue
+    return False
+
+
 # ---------- 搜尋 ----------
 def search(query, max_results=5):
     try:
