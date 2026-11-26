@@ -21,6 +21,7 @@ os.environ.setdefault("LOCAL_MODEL", "model")
 
 try:
     import local_agent
+    import providers
     import web_tools
 except ImportError as e:
     print(f"缺少必要套件或檔案：{e}")
@@ -70,7 +71,8 @@ def report_network():
     if online:
         print("網路連線：已連線")
     else:
-        print("網路連線：未連線（離線模式：只能使用本地功能，查資料無法使用）")
+        print("網路連線：未連線（離線模式：只能使用本地功能，查資料與雲端無法使用）")
+    print(providers.describe_cloud(providers.cloud_provider()))
 
 
 def main():
